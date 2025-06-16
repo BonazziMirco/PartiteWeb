@@ -33,23 +33,12 @@ public class MatchRepository {
         return jdbc.query(sql, matchRowMapper, sport, matchDate);
     }
 
-    public List<Integer> getResults(String sport, LocalDate matchDate, List<Integer> predictions) {
+    public List<Integer> getResults(String sport, LocalDate matchDate) {
         String sql = "SELECT * FROM matches WHERE sport=? and matchDate=?";
         RowMapper<Integer> matchRowMapper = (r, i) -> {
-            return r.getInt("RESULT");
+            return r.getInt("MATCHRESULT");
         };
-        List<Integer> result = jdbc.query(sql, matchRowMapper, sport, matchDate);
-
-        int i=1, c=0;
-        for (Integer prediction : predictions){
-            if(Objects.equals(prediction, result.get(i))){
-                c++;
-            }
-            i++;
-        }
-
-        result.add(c);
-        return result;
+        return jdbc.query(sql, matchRowMapper, sport, matchDate);
     }
 
     public void createMatches(String sport) {

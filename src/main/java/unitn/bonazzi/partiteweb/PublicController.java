@@ -46,9 +46,7 @@ public class PublicController {
     }
 
     @PostMapping(value = "/getResults", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Integer> getResults(@RequestParam String sport,
-                                  @RequestParam LocalDate date,
-                                  @RequestParam List<Integer> predictions) {
-        return matchRepository.getResults(sport, date, predictions);
+    public List<Integer> getResults(@RequestParam String sport, @RequestParam LocalDate date) {
+        return matchRepository.getResults(sport, date);
     }
 }
